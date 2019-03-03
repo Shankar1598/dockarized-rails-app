@@ -1,0 +1,32 @@
+version: "3.6"
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: fakedb
+      MYSQL_USER: fakeuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+  app:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ".:/fakeapp"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      DB_USER: root
+      DB_NAME: fakedb
+      DB_PASSWORD: password
+      DB_HOST: db
+      DEV_SECRET_KEY: 3eb91b8eec6021b5169317eca6f4f7ae3b5143cad47097a2bc64796964d35aa7ba6ef2dcd0b187ac3a171be3cf8ee76b0b846942d2f47dc704eae400df9b857b
+      PROD_SECRET_KEY: sample_prod_key
+      TEST_SECRET_KEY: bb7fdc2a331f54867cf9a1c3ce0240e01fff09ccf2e123b5796610f1273a46617cc80c3ec000fb882dfeba9b63f84648fd069a0daf694fcf7336dfcdd46236cd
