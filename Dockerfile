@@ -6,8 +6,8 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 RUN mkdir /fakeapp
 WORKDIR /fakeapp
 
-ADD Gemfile /noteapp/Gemfile
-ADD Gemfile.lock /noteapp/Gemfile.lock
+ADD Gemfile Gemfile
+ADD Gemfile.lock Gemfile.lock
 
 RUN bundle install
 
