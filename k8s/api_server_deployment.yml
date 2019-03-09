@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tagalys-api-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      pod: api-server
+  template:
+    metadata:
+      labels:
+        pod: api-server
+    spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: tagalys-secret
+      containers:
+        - name: api-server-container
+          imagePullPolicy: Always
+          image: shankar1598/tagalys-api-server:v10
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: secret-volume
+              mountPath: "/mnt/secret"
+              readOnly: true
+          # env:
+            # - name: "DB_HOST"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: DB_HOST
+            # - name: "TAGALYS_SECRET"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: TAGALYS_SECRET
+            # - name: "DB_NAME"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: DB_NAME
+            # - name: "DB_PASSWORD"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: DB_PASSWORD
+            # - name: "DEV_SECRET_KEY"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: DEV_SECRET_KEY
+            # - name: "PROD_SECRET_KEY"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: PROD_SECRET_KEY
+            # - name: "TEST_SECRET_KEY"
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: tagalys-secret
+            #       key: TEST_SECRET_KEY
