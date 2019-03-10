@@ -8,4 +8,4 @@ spec:
     pod: api-server
   ports:
     - port: 5000
-      targetPort: 5000
+      targetPort: 3000
