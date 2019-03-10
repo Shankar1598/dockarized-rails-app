@@ -14,7 +14,7 @@ before-install:
   - gcloud config set project robust-chess-234104
   - gcloud config set compute/zone asia-south1-a
   - gcloud container clusters get-credentials standard-cluster-1
-  - $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 deploy:
   provider: script
