@@ -20,7 +20,9 @@ before-install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 deploy:
   provider: script
-  script: bash ./deploy.sh
+  script: 
+    - kubectl apply -f k8s
+    - kubectl set image deployments/tagalys-api-server api-server-container=shankar1598/tagalys-api-server:v13
   on: 
     branch: master
   
