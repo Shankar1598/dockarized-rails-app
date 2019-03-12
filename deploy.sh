@@ -1,4 +1,3 @@
-#!/bin/bash
 docker build -t shankar1598/tagalys-api-server:$SHA .
 docker tag shankar1598/tagalys-api-server:$SHA shankar1598/tagalys-api-server:latest
 docker push shankar1598/tagalys-api-server:latest
